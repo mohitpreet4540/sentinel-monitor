@@ -1,0 +1,16 @@
+summon tnt -43 7 12 {fuse:59,Tags:["AquaParkour","Unnatural"]}
+summon tnt -43 6 13 {fuse:59,Tags:["AquaParkour","Unnatural"]}
+summon tnt -43 6 12 {fuse:59,Tags:["AquaParkour","Unnatural"]}
+summon tnt -42 6 12 {fuse:59,Tags:["AquaParkour","Unnatural"]}
+summon tnt -41 6 11 {fuse:59,Tags:["AquaParkour","Unnatural"]}
+summon tnt -40 6 13 {fuse:59,Tags:["AquaParkour","Unnatural"]}
+summon tnt -43 5 13 {fuse:59,Tags:["AquaParkour","Unnatural"]}
+summon tnt -43 5 12 {fuse:59,Tags:["AquaParkour","Unnatural"]}
+summon tnt -42 5 13 {fuse:59,Tags:["AquaParkour","Unnatural"]}
+summon tnt -42 5 12 {fuse:59,Tags:["AquaParkour","Unnatural"]}
+summon tnt -41 5 13 {fuse:59,Tags:["AquaParkour","Unnatural"]}
+summon tnt -41 5 12 {fuse:59,Tags:["AquaParkour","Unnatural"]}
+summon tnt -41 5 11 {fuse:59,Tags:["AquaParkour","Unnatural"]}
+summon tnt -40 5 13 {fuse:59,Tags:["AquaParkour","Unnatural"]}
+summon tnt -40 5 12 {fuse:59,Tags:["AquaParkour","Unnatural"]}
+summon tnt -40 5 11 {fuse:59,Tags:["AquaParkour","Unnatural"]}

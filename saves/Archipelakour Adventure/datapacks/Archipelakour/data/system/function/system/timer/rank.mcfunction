@@ -1,0 +1,13 @@
+execute if score @s timer matches ..18001 run title @s title {"text": "A+","color": "#1bccd9"}
+execute if score @s timer matches 18002..20401 run title @s title {"text": "A","color": "#1bccd9"}
+execute if score @s timer matches 20402..21601 run title @s title {"text": "A-","color": "#1bccd9"}
+execute if score @s timer matches 21602..22801 run title @s title {"text": "B+","color": "#1bccd9"}
+execute if score @s timer matches 22802..24001 run title @s title {"text": "B","color": "#1bccd9"}
+execute if score @s timer matches 24002..25801 run title @s title {"text": "B-","color": "#1bccd9"}
+execute if score @s timer matches 25802..28201 run title @s title {"text": "C+","color": "#1bccd9"}
+execute if score @s timer matches 28202..30001 run title @s title {"text": "C","color": "#1bccd9"}
+execute if score @s timer matches 30002..31801 run title @s title {"text": "C-","color": "#1bccd9"}
+execute if score @s timer matches 31802..33001 run title @s title {"text": "D+","color": "#1bccd9"}
+execute if score @s timer matches 33002..34201 run title @s title {"text": "D","color": "#1bccd9"}
+execute if score @s timer matches 34202..36001 run title @s title {"text": "D-","color": "#1bccd9"}
+execute if score @s timer matches 36002.. run title @s title {"text": "F","color": "red"}

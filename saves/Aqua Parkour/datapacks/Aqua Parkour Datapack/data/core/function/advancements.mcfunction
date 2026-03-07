@@ -1,0 +1,15 @@
+execute as @a[x=114,y=-4,z=-122,dx=0,dy=1,dz=0] at @s run advancement grant @s only core:aqua
+execute as @a[x=14,y=-13,z=55,dx=-1,dy=0,dz=1] at @s run advancement grant @s only core:blaze
+execute as @a[x=45,y=-8,z=-19,dx=1,dy=0,dz=1] at @s run advancement grant @s only core:brewery
+execute as @a[x=25,y=-20,z=-24,dx=0,dy=0,dz=0] at @s run advancement grant @s only core:coral
+execute as @a[x=-49,y=-6,z=40,dx=0,dy=0,dz=0] at @s run advancement grant @s only core:dirt
+execute as @a[x=44,y=-25,z=-5,dx=0,dy=1,dz=0] at @s run advancement grant @s only core:donut
+execute as @a[x=6,y=-11,z=-47,dx=0,dy=2,dz=0] at @s run advancement grant @s only core:factory
+execute as @a[x=-44,y=-5,z=3,dx=0,dy=0,dz=0] at @s run advancement grant @s only core:fantasy
+execute as @a[x=-4,y=-3,z=60,dx=0,dy=0,dz=0] at @s run advancement grant @s only core:froglight
+execute as @a[x=-5,y=-18,z=15,dx=0,dy=0,dz=0] at @s run advancement grant @s only core:library
+execute as @a[x=82,y=-43,z=-20,dx=0,dy=0,dz=0] at @s run advancement grant @s only core:mine
+execute as @a[x=1,y=-12,z=43,dx=0,dy=2,dz=0] at @s run advancement grant @s only core:nostalgia
+execute as @a[x=52,y=-14,z=34,dx=0,dy=0,dz=0] at @s run advancement grant @s only core:sculk
+execute as @a[x=-35,y=-27,z=40,dx=0,dy=0,dz=0] at @s run advancement grant @s only core:view
+execute as @a[x=41,y=-14,z=7,dx=0,dy=1,dz=0] at @s run advancement grant @s only core:weapon

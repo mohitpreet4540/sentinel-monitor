@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentinel Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #121212; color: white; }
+        .box { background: #1e1e1e; padding: 20px; border-radius: 10px; margin: 10px; display: inline-block; width: 80%; }
+        #uptime { color: #00ff00; font-size: 1.5em; }
+    </style>
+</head>
+<body>
+    <h1>Sentinel System Monitor</h1>
+    <div class="box">
+        <p>System Uptime: <span id="uptime">Loading...</span></p>
+    </div>
+    <div class="box">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: { labels: [], datasets: [
+                { label: 'CPU %', borderColor: 'rgb(255, 99, 132)', data: [] },
+                { label: 'RAM %', borderColor: 'rgb(54, 162, 235)', data: [] }
+            ]},
+            options: { animation: false }
+        });
+
+        async function updateStats() {
+            const res = await fetch('http://YOUR_LAPTOP_IP:8000/stats');
+            const data = await res.json();
+            
+            document.getElementById('uptime').innerText = data.current_uptime;
+            chart.data.labels = data.labels;
+            chart.data.datasets[0].data = data.cpu;
+            chart.data.datasets[1].data = data.ram;
+            chart.update();
+        }
+
+        setInterval(updateStats, 2000); // Update every 2 seconds
+    </script>
+</body>
+</html>
+   

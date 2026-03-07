@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:brain_coral_block"
+    },
+    "title": {
+      "text": "Coral Room",
+      "bold":true
+    },
+    "description": {
+      "text": "Relax with a few corals!"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "parent": "core:blaze",
+  "criteria": {
+    "minecraft": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

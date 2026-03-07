@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentinel Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; text-align: center; background: #0f0f0f; color: #e0e0e0; }
+        .container { width: 90%; max-width: 800px; margin: auto; }
+        .card { background: #1a1a1a; padding: 20px; border-radius: 15px; margin-top: 20px; border: 1px solid #333; }
+        h1 { color: #4CAF50; }
+        #uptime { font-weight: bold; color: #2196F3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sentinel System Monitor</h1>
+        <div class="card">
+            <p>Uptime: <span id="uptime">Connecting...</span></p>
+        </div>
+        <div class="card">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: { labels: [], datasets: [
+                { label: 'CPU %', borderColor: '#ff5252', data: [], tension: 0.3, fill: false },
+                { label: 'RAM %', borderColor: '#448aff', data: [], tension: 0.3, fill: false }
+            ]},
+            options: { scales: { y: { min: 0, max: 100 } }, animation: false }
+        });
+       // REPLACE your old fetch line with this:
+async function update() {
+    try {
+        // window.location.hostname automatically becomes 192.168.x.x 
+        // depending on which network you are on!
+        const res = await fetch(`http://${window.location.hostname}:8000/stats`);
+        const data = await res.json();
+        
+        document.getElementById('uptime').innerText = data.current_uptime;
+        chart.data.labels = data.labels;
+        chart.data.datasets[0].data = data.cpu;
+        chart.data.datasets[1].data = data.ram;
+        chart.update();
+    } catch (e) { 
+        console.log("Searching for API on " + window.location.hostname); 
+    }
+}
+
+        setInterval(update, 2000);
+    </script>
+</body>
+</html>

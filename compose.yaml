@@ -1,0 +1,9 @@
+services:
+  sentinel:
+    image: mohit4640/sentinel-app:v1
+    container_name: sentinel-monitor
+    ports:
+      - "8000:8000"
+    pid: "host"
+    restart: always
+
