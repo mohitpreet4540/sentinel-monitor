@@ -1,54 +1,102 @@
-#  Sentinel System Monitor
+# Sentinel System Monitor
+Sentinel is a lightweight system monitoring dashboard that collects live CPU and RAM usage, exposes the data through a FastAPI API, and renders it in a browser dashboard.
 
-A lightweight, containerized system monitoring dashboard. This project collects real-time hardware telemetry (CPU, RAM, Uptime) and serves it through a sleek web interface.
+## Key Features
+- Real-time CPU and RAM monitoring
+- Live dashboard served from FastAPI
+- CSV logging for recent history
+- Works on both Windows and Linux
 
-Built as part of my **BCA 2nd Semester** curriculum to explore System Internals and DevOps.
+## Tech Stack
+- Python 3.12
+- FastAPI
+- Uvicorn
+- Psutil
+- Pandas
+- HTML, CSS, JavaScript, Chart.js
 
+## Project Structure
+- `engine.py` - collects system stats and appends them to `system_data.csv`
+- `api.py` - serves the dashboard and JSON stats API
+- `index.html` - frontend dashboard
+- `start_windows.ps1` - starter for Windows
+- `start_linux.sh` - starter for Linux
+- `compose.yaml` - Docker Compose configuration
 
+## Local Setup
+Create and install the virtual environment before starting the app.
 
-##  Key Features
-* **Real-time Monitoring:** Tracks CPU usage, RAM availability, and system uptime.
-* **Dockerized Architecture:** Completely portable. Runs on Ubuntu, Fedora, and Windows without manual Python setup.
-* **REST API:** Built with FastAPI to serve hardware data as JSON.
-* **Persistent Logging:** Automatically saves system stats to a CSV file for historical analysis.
+### Windows
+```powershell
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
 
-##  Tech Stack
-- **Backend:** Python 3.12 (FastAPI, Psutil)
-- **Frontend:** HTML5, CSS3, JavaScript (Fetch API)
-- **Deployment:** Docker, Docker Compose
-- **Container Registry:** Docker Hub
+### Linux
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+chmod +x start_linux.sh
+```
 
-## How to Run
+## Run the Project
+Both operating systems need two processes:
+- `engine.py` writes live system data
+- `api.py` serves the dashboard on port `8000`
 
-### Prerequisite
-- Docker & Docker Compose installed.
+### Windows starter
+```powershell
+.\start_windows.ps1
+```
 
-### Option 1: Pull from Docker Hub (Easiest)
-If you don't want to download the code, just run:
+### Linux starter
+```bash
+./start_linux.sh
+```
+
+## Manual Run
+Use these commands if you want to start each process yourself.
+
+### Windows
+Terminal 1:
+```powershell
+.\venv\Scripts\python.exe .\engine.py
+```
+
+Terminal 2:
+```powershell
+.\venv\Scripts\python.exe .\api.py
+```
+
+### Linux
+Terminal 1:
+```bash
+./venv/bin/python ./engine.py
+```
+
+Terminal 2:
+```bash
+./venv/bin/python ./api.py
+```
+
+## Open the Dashboard
+- On the same machine: `http://localhost:8000`
+- On another device in the same network: `http://YOUR-IP:8000`
+
+## Docker
+Run with Docker if you prefer containers.
 ```bash
 docker run -d -p 8000:8000 --name sentinel-monitor --pid=host mohit4640/sentinel-app:v1
 ```
-###Option 2: Run Locally
 
-**Clone the repository:**  
+## Push to GitHub
+After reviewing your changes, run:
 
-### Option 2: Run Locally
-
-1. **Clone the repository:**
 ```bash
-git clone https://github.com/mohitpreet4540/sentinel-monitor.git  
+git add README.md start_windows.ps1 start_linux.sh engine.py api.py index.html
+git commit -m "Add cross-platform startup scripts and fix Windows runtime issues"
+git push origin main
 ```
-**Bash**  
-
-./start_sentinel.sh
-Access the dashboard at http://localhost:8000.
-
-##📂 Project Structure
-- **engine.py:** Background worker that collects hardware data.
-
-- **api.py**: FastAPI server handling web requests.
-
-- **index.html**: The visual dashboard.
-
-- **compose.yaml**: Docker orchestration file.
 

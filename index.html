@@ -40,7 +40,7 @@ async function update() {
         const res = await fetch(`http://${window.location.hostname}:8000/stats`);
         const data = await res.json();
         
-        document.getElementById('uptime').innerText = data.current_uptime;
+        document.getElementById('uptime').innerText = data.current_uptime || 'Unavailable';
         chart.data.labels = data.labels;
         chart.data.datasets[0].data = data.cpu;
         chart.data.datasets[1].data = data.ram;
@@ -50,6 +50,7 @@ async function update() {
     }
 }
 
+        update();
         setInterval(update, 2000);
     </script>
 </body>

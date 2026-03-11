@@ -2,38 +2,45 @@ import psutil
 import time
 import csv
 import os
+from pathlib import Path
 from datetime import datetime
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_FILE = os.path.join(BASE_DIR, "system_data.csv")
+# This line makes it work on BOTH Windows and Linux automatically
+# It looks for 'system_data.csv' in the same folder as the script
+BASE_DIR = Path(__file__).resolve().parent
+DATA_FILE = BASE_DIR / "system_data.csv"
 
-def get_uptime():
-    boot_time = psutil.boot_time()
-    uptime_seconds = time.time() - boot_time
-    m, s = divmod(uptime_seconds, 60)
-    h, m = divmod(m, 60)
-    d, h = divmod(h, 24)
-    return f"{int(d)}d {int(h)}h {int(m)}m"
+def collect_stats():
+    # Check if file exists to add header
+    file_exists = DATA_FILE.exists()
 
-def monitor():
-    if not os.path.exists(DATA_FILE):
-        with open(DATA_FILE, "w") as f:
-            f.write("timestamp,cpu,ram,uptime\n")
-
-    while True:
-        try:
-            cpu = psutil.cpu_percent(interval=1)
-            ram = psutil.virtual_memory().percent
-            uptime = get_uptime()
-            timestamp = datetime.now().strftime("%H:%M:%S")
-
-            with open(DATA_FILE, "a") as f:
-                writer = csv.writer(f)
-                writer.writerow([timestamp, cpu, ram, uptime])
-        except Exception as e:
-            print(f"Error: {e}")
+    with open(DATA_FILE, mode='a', newline='') as file:
+        writer = csv.writer(file)
         
-        time.sleep(2)
+        # Add Header if it's a new file
+        if not file_exists:
+            writer.writerow(["Timestamp", "CPU_Usage", "RAM_Usage"])
+
+        print(f"Sentinel Engine started. Saving to: {DATA_FILE}")
+
+        while True:
+            try:
+                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                cpu = psutil.cpu_percent(interval=1)
+                ram = psutil.virtual_memory().percent
+                
+                writer.writerow([timestamp, cpu, ram])
+                file.flush() # Ensures data is written immediately
+                
+                print(f"[{timestamp}] CPU: {cpu}% | RAM: {ram}% - Logged.")
+                
+                time.sleep(1) 
+            except KeyboardInterrupt:
+                print("\nEngine stopped by user.")
+                break
+            except Exception as e:
+                print(f"Error: {e}")
+                time.sleep(5)
 
 if __name__ == "__main__":
-    monitor()
+    collect_stats()

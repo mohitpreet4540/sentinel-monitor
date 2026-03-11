@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import psutil
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
@@ -20,6 +21,18 @@ DATA_FILE = os.path.join(BASE_DIR, "system_data.csv")
 # Look! No "templates" folder here anymore
 HTML_FILE = os.path.join(BASE_DIR, "index.html")
 
+def format_uptime():
+    uptime_seconds = int(psutil.boot_time())
+    elapsed = max(0, int(__import__("time").time()) - uptime_seconds)
+    days, remainder = divmod(elapsed, 86400)
+    hours, remainder = divmod(remainder, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    if days:
+        return f"{days}d {hours}h {minutes}m {seconds}s"
+    if hours:
+        return f"{hours}h {minutes}m {seconds}s"
+    return f"{minutes}m {seconds}s"
+
 @app.get("/")
 def read_index():
     if os.path.exists(HTML_FILE):
@@ -38,10 +51,10 @@ def get_stats():
         
         # We convert to standard Python types to prevent 406 errors
         return {
-            "labels": [str(x) for x in last_rows["timestamp"].tolist()],
-            "cpu": [float(x) for x in last_rows["cpu"].tolist()],
-            "ram": [float(x) for x in last_rows["ram"].tolist()],
-            "current_uptime": str(last_rows["uptime"].iloc[-1])
+            "labels": [str(x) for x in last_rows["Timestamp"].tolist()],
+            "cpu": [float(x) for x in last_rows["CPU_Usage"].tolist()],
+            "ram": [float(x) for x in last_rows["RAM_Usage"].tolist()],
+            "current_uptime": format_uptime()
         }
     except Exception as e:
         return {"error": "Data stream busy", "details": str(e)}
