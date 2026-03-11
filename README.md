@@ -91,12 +91,3 @@ Run with Docker if you prefer containers.
 docker run -d -p 8000:8000 --name sentinel-monitor --pid=host mohit4640/sentinel-app:v1
 ```
 
-## Push to GitHub
-After reviewing your changes, run:
-
-```bash
-git add README.md start_windows.ps1 start_linux.sh engine.py api.py index.html
-git commit -m "Add cross-platform startup scripts and fix Windows runtime issues"
-git push origin main
-```
-
